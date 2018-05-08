@@ -1,0 +1,62 @@
+1、内置对象
+
+String
+Number
+Boolean
+Object
+function
+Array
+Date
+RegExp
+Error
+
+2、浅复制
+
+ES6 中的Object.assign({}, tar)可以实现
+
+3、属性描述符
+
+从 ES5 开始，所有的属性都具备了属性描述符：
+
+var myObject = {}
+
+Object.defineProperty(myObject, 'a', {
+  value: 2,
+  writable: true,
+  enumerable: true,
+  configurable: true
+})
+
+myObject.a //2
+
+说明：
+1）Writable —— 决定是否可以修改属性的值
+
+writable: false ——> myObject.a = 3 ——> myObject.a //2 
+                    myObject.a = 3 //TypeError 严格模式报错
+
+2）Configurable
+configurable: false; 配置不可修改，但是在此情况下，可以把writable的状态由true改为false,但是无法由false改为true
+
+同时，还禁止删除属性
+示例代码：
+var myObject = {
+  a: 2
+}
+
+myObject.a //2
+
+delete myObject.a
+myObject.a //undefined
+
+Object.defineProperty(myObject, 'a', {
+  value: 2,
+  writable: true,
+  configurable: false,
+  enumerable: true
+})
+
+myObject.a //2
+delete myObject.a
+myObject.a //2
+

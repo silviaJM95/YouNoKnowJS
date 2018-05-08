@@ -1,0 +1,67 @@
+函数作用域和块作用域的行为。总结：任何声明在某个作用域内的变量，都将附属于这个作用域
+
+提升：变量和函数声明从它们在代码中出现的位置被 “移动” 到了 最 上面的过程
+
+先有蛋后有鸡 —— 先声明后赋值
+
+！！只有声明本身会被提升，而赋值或其他运行逻辑会留在原地
+
+foo()
+
+function foo() {
+  console.log(a) //undefined
+  var a = 2
+}
+
+等价于
+
+function foo() {
+  var a;
+  console.log(a) //undefined
+
+  a = 2
+}
+
+foo()
+
+注意：函数声明会被提升，函数表达式不会被提升
+
+foo() //不是ReferenceError，而是TypeError
+
+var foo = function bar() {
+  //……
+}
+
+解析：以上变量标识符foo()被提升，并分配给所在的作用域，即全局作用域
+因此，foo() 不会导致RefenenceError
+但是, foo()此时并没有赋值，（如果是函数声明就会被赋值）foo() 由于对undefined 值进行函数调用而导致非法操作，因此抛出TypeError异常
+
+函数优先 —— 函数声明和变量声明都会被提升， “函数会被先提升，然后才是变量”
+
+示例：
+foo() //1
+
+var foo
+
+function foo() {
+  console.log(1)
+}
+
+foo = function () {
+  console.log(2)
+}
+
+引擎执行：
+funciton foo() {
+  console.log(1)
+}
+
+foo()
+
+foo = function () {
+  console.log(2)
+}
+
+函数声明会被提升，而包括函数表达式在内的赋值操作不会被提升
+
+
